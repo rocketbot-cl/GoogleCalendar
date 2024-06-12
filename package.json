@@ -1,0 +1,922 @@
+{
+  "author": "Danilo Toro, Nicolas Liendro, Juan Siro",
+  "description": "Module to use Google Calendar | Módulo para usar Google Calendar",
+  "description_lang":{
+    "en": "You can get, modify, create or delete events and more from any calendar you have in your Google Calendar account",
+    "es": "Puedes obtener, modificar, crear o borrar eventos y más de cualquier calendario que tengas en tu cuenta de Google Calendar",
+    "pr": "Pode obter, modificar, criar ou eliminar eventos e mais de qualquer calendário que tenhas na sua conta do Google Calendar"
+  },
+  "disclaimer": "THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "homepage": "http://rocketbot.com",
+  "linux": true,
+  "windows": true,
+  "mac": true,
+  "docker": true,
+  "name": "GoogleCalendar",
+  "dependencies": {
+    "google-api-python-client": "1.7.11",
+    "google-auth-httplib2": "0.0.3",
+    "google-auth-oauthlib": "0.4.0",
+    "gspread": ""
+  },
+  "title": {
+    "en": "Google Calendar",
+    "es": "Google Calendar",
+    "pr": "Google Calendar"
+  },
+  "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+  "children": [
+    {
+      "en": {
+        "title": "Setup G-Suite credentials",
+        "description": "Get permissions to handle Google SpreadSheet with Rocketbot",
+        "title_options": null,
+        "options": null
+      },
+      "es": {
+        "title": "Configurar credenciales G-Suite",
+        "description": "Obtiene los permisos para manejar Google SpreadSheet con Rocketbot",
+        "title_options": "Seleccione una opción",
+        "options": null
+      },
+      "pr": {
+        "title": "Configurar credenciais G-Suite",
+        "description": "Obtém permissão para trabalhar no Google SpreadSheet com o Rocketbot",
+        "title_options": "Seleccione una opción",
+        "options": null
+      },
+      "form": {
+        "css": "modal-lg",
+        "inputs": [
+          {
+            "type": "file_select",
+            "placeholder": {
+              "es": "C:/ruta/a/credenciales.json",
+              "en": "C:/path/to/credentials.json",
+              "pr": "C:/caminho/credenciais.json"
+            },
+            "title": {
+              "es": "Ruta del archivo de credenciales",
+              "en": "Credentials file path",
+              "pr": "Caminho de credenciais"
+            },
+            "description": {
+              "es": "Archivo JSON con las credenciales de acceso a la API de Google Calentar.",
+              "en": "JSON file with the credentials to access the Google Calentar API.",
+              "pr": "Arquivo JSON com as credenciais de acesso ao API do Google Calentar."
+            },
+            "extensions": [
+              [
+                "Json Files",
+                "*.json"
+              ]
+            ],
+            "id": "credentials_path",
+            "css": "col-md-12"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "8080",
+              "en": "8080",
+              "pr": "8080"
+            },
+            "title": {
+              "es": "Puerto (Opcional)",
+              "en": "Port (Optional)",
+              "pr": "Porto (Opcional)"
+            },
+            "id": "port",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": "session",
+            "title": {
+              "en": "Session",
+              "es": "Session",
+              "pr": "Session"
+            },
+            "help": {
+              "es": "Identificador de sesión (Opcional)",
+              "en": "Session ID (Optional)",
+              "pr": "ID da sessão (Opcional)"
+            },
+            "id": "session",
+            "css": "col-md-6"
+          }
+        ]
+      },
+      "video_youtube": "aMV6cXPMMSo",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+      "module": "GoogleSuite",
+      "module_name": "GoogleCalendar",
+      "visible": true,
+      "options": false,
+      "father": "module",
+      "group": "scripts",
+      "linux": true,
+      "windows": true,
+      "mac": true,
+      "docker": true
+    },
+    {
+      "en": {
+        "title": "List Calendars",
+        "description": "List user calendars",
+        "title_options": null,
+        "options": null
+      },
+      "es": {
+        "title": "Listar calendarios",
+        "description": "Listar los calendarios de un usuario",
+        "title_options": null,
+        "options": null
+      },
+      "pr": {
+        "title": "Listar calendários",
+        "description": "Listar calendários do usuário",
+        "title_options": null,
+        "options": null
+      },
+      "form": {
+        "css": "modal-lg",
+        "inputs": [
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Variable",
+              "en": "Variable",
+              "pr": "Variável"
+            },
+            "title": {
+              "es": "Resultado:",
+              "en": "Result:",
+              "pr": "Resultado:"
+            },
+            "help": {
+              "es": "Nombre de variable sin {}",
+              "en": "Variable name without {}",
+              "pr": "Nome da variável sem {}"
+            },
+            "remove_vars": true,
+            "id": "result",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": "session",
+            "title": {
+              "en": "Session",
+              "es": "Session",
+              "pr": "Session"
+            },
+            "help": {
+              "es": "Identificador de sesión (Opcional)",
+              "en": "Session ID (Optional)",
+              "pr": "ID da sessão (Opcional)"
+            },
+            "id": "session",
+            "css": "col-md-6"
+          }
+        ]
+      },
+      "video_youtube": "aMV6cXPMMSo",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+      "module": "ListCalendars",
+      "module_name": "GoogleCalendar",
+      "visible": true,
+      "options": false,
+      "father": "module",
+      "group": "scripts",
+      "linux": true,
+      "windows": true,
+      "mac": true,
+      "docker": true
+    },
+    {
+      "en": {
+        "title": "List Events",
+        "description": "List events of a user's calendar",
+        "title_options": null,
+        "options": null
+      },
+      "es": {
+        "title": "Listar Eventos",
+        "description": "Listar eventos de un calendario del usuario",
+        "title_options": null,
+        "options": null
+      },
+      "pr": {
+        "title": "Listar Eventos",
+        "description": "Listar eventos da agenda de um usuário",
+        "title_options": null,
+        "options": null
+      },
+      "form": {
+        "css": "modal-lg",
+        "inputs": [
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Calendar ID",
+              "en": "Calendar ID",
+              "pr": "Calendar ID"
+            },
+            "title": {
+              "es": "Calendar ID",
+              "en": "ID de calendario",
+              "pr": "ID do calendário"
+            },
+            "id": "calendarId",
+            "css": "col-md-12"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Variable",
+              "en": "Variable",
+              "pr": "Variável"
+            },
+            "title": {
+              "es": "Resultado:",
+              "en": "Result:",
+              "pr": "Resultado:"
+            },
+            "help": {
+              "es": "Nombre de variable sin {}",
+              "en": "Variable name without {}",
+              "pr": "Nome da variável sem {}"
+            },
+            "remove_vars": true,
+            "id": "result",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": "session",
+            "title": {
+              "en": "Session",
+              "es": "Session",
+              "pr": "Session"
+            },
+            "help": {
+              "es": "Identificador de sesión (Opcional)",
+              "en": "Session ID (Optional)",
+              "pr": "ID da sessão (Opcional)"
+            },
+            "id": "session",
+            "css": "col-md-6"
+          }
+        ]
+      },
+      "video_youtube": "aMV6cXPMMSo",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+      "module": "ListEvents",
+      "module_name": "GoogleCalendar",
+      "visible": true,
+      "options": false,
+      "father": "module",
+      "group": "scripts",
+      "linux": true,
+      "windows": true,
+      "mac": true,
+      "docker": true
+    },
+    {
+      "en": {
+        "title": "Get Event",
+        "description": "Get an event from a calendar",
+        "title_options": null,
+        "options": null
+      },
+      "es": {
+        "title": "Obtener Evento",
+        "description": "Obtener un evento de un calendario",
+        "title_options": null,
+        "options": null
+      },
+      "pr": {
+        "title": "Obter evento",
+        "description": "Obtenha um evento de um calendário",
+        "title_options": null,
+        "options": null
+      },
+      "form": {
+        "css": "modal-xl",
+        "inputs": [
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Calendar ID",
+              "en": "Calendar ID",
+              "pr": "Calendar ID"
+            },
+            "title": {
+              "es": "Calendar ID",
+              "en": "ID de calendario",
+              "pr": "ID do calendário"
+            },
+            "id": "calendarId",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Event ID",
+              "en": "Event ID",
+              "pr": "Event ID"
+            },
+            "title": {
+              "es": "Event ID",
+              "en": "ID de evento",
+              "pr": "ID do evento"
+            },
+            "id": "eventId",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Variable",
+              "en": "Variable",
+              "pr": "Variável"
+            },
+            "title": {
+              "es": "Resultado:",
+              "en": "Result:",
+              "pr": "Resultado:"
+            },
+            "help": {
+              "es": "Nombre de variable sin {}",
+              "en": "Variable name without {}",
+              "pr": "Nome da variável sem {}"
+            },
+            "remove_vars": true,
+            "id": "result",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": "session",
+            "title": {
+              "en": "Session",
+              "es": "Session",
+              "pr": "Session"
+            },
+            "help": {
+              "es": "Identificador de sesión (Opcional)",
+              "en": "Session ID (Optional)",
+              "pr": "ID da sessão (Opcional)"
+            },
+            "id": "session",
+            "css": "col-md-6"
+          }
+        ]
+      },
+      "video_youtube": "aMV6cXPMMSo",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+      "module": "GetEvent",
+      "module_name": "GoogleCalendar",
+      "visible": true,
+      "options": false,
+      "father": "module",
+      "group": "scripts",
+      "linux": true,
+      "windows": true,
+      "mac": true,
+      "docker": true
+    },
+    {
+      "en": {
+        "title": "Create Event",
+        "description": "Create an event within a user's calendar",
+        "title_options": null,
+        "options": null
+      },
+      "es": {
+        "title": "Crear Evento",
+        "description": "Crear un evento dentro del calendario de un usuario",
+        "title_options": null,
+        "options": null
+      },
+      "pr": {
+        "title": "Criar Evento",
+        "description": "Crie um evento na agenda de um usuário",
+        "title_options": null,
+        "options": null
+      },
+      "form": {
+        "css": "modal-xl",
+        "inputs": [
+          {
+            "type": "textarea",
+            "placeholder": "{'summary': 'Google I/O 2015', 'location': '800 Howard St., San Francisco, CA 94103', 'description': 'A chance to hear more about Google's developer products.', 'start': {'dateTime': '2015-05-28T09:00:00-07:00', 'timeZone': 'America/Los_Angeles'}, 'end': {'dateTime': '2015-05-28T17:00:00-07:00', 'timeZone': 'America/Los_Angeles'}, 'recurrence': ['RRULE:FREQ=DAILY;COUNT=2'], 'attendees': [{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}], 'reminders': {'useDefault': False, 'overrides': [{'method': 'email', 'minutes': 1440}, {'method': 'popup', 'minutes': 10}]}}}",
+            "title": {
+              "es": "Datos de Evento",
+              "en": "Event Data",
+              "pr": "Dados do Evento"
+            },
+            "help": {
+              "es": "Docs: https://developers.google.com/calendar/api/v3/reference/events/insert",
+              "en": "Docs: https://developers.google.com/calendar/api/v3/reference/events/insert",
+              "pr": "Docs: https://developers.google.com/calendar/api/v3/reference/events/insert"
+            },
+            "id": "body",
+            "css": "col-md-12"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Calendar ID",
+              "en": "Calendar ID",
+              "pr": "Calendar ID"
+            },
+            "title": {
+              "es": "Calendar ID",
+              "en": "ID de calendario",
+              "pr": "ID do calendário"
+            },
+            "id": "calendarId",
+            "css": "col-md-6"
+          },
+          {
+            "type": "checkbox",
+            "placeholder": {
+              "es": "-",
+              "en": "-",
+              "pr": "-"
+            },
+            "title": {
+              "es": "Enviar notificaciones",
+              "en": "Send notifications",
+              "pr": "Enviar notificações"
+            },
+            "description": {
+              "es": "Enviar notificaciones por correo electronico",
+              "en": "Send notifications by email",
+              "pr": "Enviar notificações por e-mail"
+            },
+            "id": "notify",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Variable",
+              "en": "Variable",
+              "pr": "Variável"
+            },
+            "title": {
+              "es": "Resultado:",
+              "en": "Result:",
+              "pr": "Resultado:"
+            },
+            "help": {
+              "es": "Nombre de variable sin {}",
+              "en": "Variable name without {}",
+              "pr": "Nome da variável sem {}"
+            },
+            "remove_vars": true,
+            "id": "result",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": "session",
+            "title": {
+              "en": "Session",
+              "es": "Session",
+              "pr": "Session"
+            },
+            "help": {
+              "es": "Identificador de sesión (Opcional)",
+              "en": "Session ID (Optional)",
+              "pr": "ID da sessão (Opcional)"
+            },
+            "id": "session",
+            "css": "col-md-6"
+          }
+        ]
+      },
+      "video_youtube": "aMV6cXPMMSo",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+      "module": "CreateEvent",
+      "module_name": "GoogleCalendar",
+      "visible": true,
+      "options": false,
+      "father": "module",
+      "group": "scripts",
+      "linux": true,
+      "windows": true,
+      "mac": true,
+      "docker": true
+    },
+    {
+      "en": {
+        "title": "Update Event",
+        "description": "Update an event within a user's calendar",
+        "title_options": null,
+        "options": null
+      },
+      "es": {
+        "title": "Actualizar Evento",
+        "description": "Actualizar un evento dentro del calendario de un usuario",
+        "title_options": null,
+        "options": null
+      },
+      "pr": {
+        "title": "Atualizar Evento",
+        "description": "Atualizar um evento na agenda de um usuário",
+        "title_options": null,
+        "options": null
+      },
+      "form": {
+        "css": "modal-xl",
+        "inputs": [
+          {
+            "type": "textarea",
+            "placeholder": "{'attendees': [{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}]}",
+            "title": {
+              "es": "Datos a Modificar",
+              "en": "Data to Modify",
+              "pr": "Dados para Modificar"
+            },
+            "help": {
+              "es": "Docs: https://developers.google.com/calendar/api/v3/reference/events/patch",
+              "en": "Docs: https://developers.google.com/calendar/api/v3/reference/events/patch",
+              "pr": "Docs: https://developers.google.com/calendar/api/v3/reference/events/patch"
+            },
+            "id": "body",
+            "css": "col-md-12"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Calendar ID",
+              "en": "Calendar ID",
+              "pr": "Calendar ID"
+            },
+            "title": {
+              "es": "Calendar ID",
+              "en": "ID de calendario",
+              "pr": "ID do calendário"
+            },
+            "id": "calendarId",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Event ID",
+              "en": "Event ID",
+              "pr": "Event ID"
+            },
+            "title": {
+              "es": "Event ID",
+              "en": "ID de evento",
+              "pr": "ID do evento"
+            },
+            "id": "eventId",
+            "css": "col-md-6"
+          },
+          {
+            "type": "checkbox",
+            "placeholder": {
+              "es": "-",
+              "en": "-",
+              "pr": "-"
+            },
+            "title": {
+              "es": "Enviar notificaciones",
+              "en": "Send notifications",
+              "pr": "Enviar notificações"
+            },
+            "description": {
+              "es": "Enviar notificaciones por correo electronico",
+              "en": "Send notifications by email",
+              "pr": "Enviar notificações por e-mail"
+            },
+            "id": "notify",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Variable",
+              "en": "Variable",
+              "pr": "Variável"
+            },
+            "title": {
+              "es": "Resultado:",
+              "en": "Result:",
+              "pr": "Resultado:"
+            },
+            "help": {
+              "es": "Nombre de variable sin {}",
+              "en": "Variable name without {}",
+              "pr": "Nome da variável sem {}"
+            },
+            "remove_vars": true,
+            "id": "result",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": "session",
+            "title": {
+              "en": "Session",
+              "es": "Session",
+              "pr": "Session"
+            },
+            "help": {
+              "es": "Identificador de sesión (Opcional)",
+              "en": "Session ID (Optional)",
+              "pr": "ID da sessão (Opcional)"
+            },
+            "id": "session",
+            "css": "col-md-6"
+          }
+        ]
+      },
+      "video_youtube": "aMV6cXPMMSo",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+      "module": "UpdateEvent",
+      "module_name": "GoogleCalendar",
+      "visible": true,
+      "options": false,
+      "father": "module",
+      "group": "scripts",
+      "linux": true,
+      "windows": true,
+      "mac": true,
+      "docker": true
+    },
+    {
+      "en": {
+        "title": "Update Assistants",
+        "description": "Update attendees to an event",
+        "title_options": null,
+        "options": null
+      },
+      "es": {
+        "title": "Actualizar Asistentes",
+        "description": "Actualizar asistentes a un evento",
+        "title_options": null,
+        "options": null
+      },
+      "pr": {
+        "title": "Assistentes de atualização",
+        "description": "Atualizar participantes de um evento",
+        "title_options": null,
+        "options": null
+      },
+      "form": {
+        "css": "modal-xl",
+        "inputs": [
+          {
+            "type": "textarea",
+            "placeholder": "['lpage@example.com', 'sbrin@example.com']",
+            "title": {
+              "es": "Datos a Modificar",
+              "en": "Data to Modify",
+              "pr": "Dados para Modificar"
+            },
+            "help": {
+              "es": "Docs: https://developers.google.com/calendar/api/v3/reference/events/patch",
+              "en": "Docs: https://developers.google.com/calendar/api/v3/reference/events/patch",
+              "pr": "Docs: https://developers.google.com/calendar/api/v3/reference/events/patch"
+            },
+            "id": "emails",
+            "css": "col-md-12"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Calendar ID",
+              "en": "Calendar ID",
+              "pr": "Calendar ID"
+            },
+            "title": {
+              "es": "Calendar ID",
+              "en": "ID de calendario",
+              "pr": "ID do calendário"
+            },
+            "id": "calendarId",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Event ID",
+              "en": "Event ID",
+              "pr": "Event ID"
+            },
+            "title": {
+              "es": "Event ID",
+              "en": "ID de evento",
+              "pr": "ID do evento"
+            },
+            "id": "eventId",
+            "css": "col-md-6"
+          },
+          {
+            "type": "checkbox",
+            "placeholder": {
+              "es": "-",
+              "en": "-",
+              "pr": "-"
+            },
+            "title": {
+              "es": "Enviar notificaciones",
+              "en": "Send notifications",
+              "pr": "Enviar notificações"
+            },
+            "description": {
+              "es": "Enviar notificaciones por correo electronico",
+              "en": "Send notifications by email",
+              "pr": "Enviar notificações por e-mail"
+            },
+            "id": "notify",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Variable",
+              "en": "Variable",
+              "pr": "Variável"
+            },
+            "title": {
+              "es": "Resultado:",
+              "en": "Result:",
+              "pr": "Resultado:"
+            },
+            "help": {
+              "es": "Nombre de variable sin {}",
+              "en": "Variable name without {}",
+              "pr": "Nome da variável sem {}"
+            },
+            "remove_vars": true,
+            "id": "result",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": "session",
+            "title": {
+              "en": "Session",
+              "es": "Session",
+              "pr": "Session"
+            },
+            "help": {
+              "es": "Identificador de sesión (Opcional)",
+              "en": "Session ID (Optional)",
+              "pr": "ID da sessão (Opcional)"
+            },
+            "id": "session",
+            "css": "col-md-6"
+          }
+        ]
+      },
+      "video_youtube": "aMV6cXPMMSo",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+      "module": "UpdateAtendeesEvent",
+      "module_name": "GoogleCalendar",
+      "visible": true,
+      "options": false,
+      "father": "module",
+      "group": "scripts",
+      "linux": true,
+      "windows": true,
+      "mac": true,
+      "docker": true
+    },
+    {
+      "en": {
+        "title": "Delete Event",
+        "description": "Delete an event from a user's calendar",
+        "title_options": null,
+        "options": null
+      },
+      "es": {
+        "title": "Borrar Evento",
+        "description": "Borrar un evento del calendario de un usuario",
+        "title_options": null,
+        "options": null
+      },
+      "pr": {
+        "title": "Cancelar Evento",
+        "description": "Excluir um evento da agenda de um usuário",
+        "title_options": null,
+        "options": null
+      },
+      "form": {
+        "css": "modal-lg",
+        "inputs": [
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Event ID",
+              "en": "Event ID",
+              "pr": "Event ID"
+            },
+            "title": {
+              "es": "Event ID",
+              "en": "ID de evento",
+              "pr": "ID do evento"
+            },
+            "id": "eventId",
+            "css": "col-md-12"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Calendar ID",
+              "en": "Calendar ID",
+              "pr": "Calendar ID"
+            },
+            "title": {
+              "es": "Calendar ID",
+              "en": "ID de calendario",
+              "pr": "ID do calendário"
+            },
+            "id": "calendarId",
+            "css": "col-md-12"
+          },
+          {
+            "type": "checkbox",
+            "placeholder": {
+              "es": "-",
+              "en": "-",
+              "pr": "-"
+            },
+            "title": {
+              "es": "Enviar notificaciones",
+              "en": "Send notifications",
+              "pr": "Enviar notificações"
+            },
+            "description": {
+              "es": "Enviar notificaciones por correo electronico",
+              "en": "Send notifications by email",
+              "pr": "Enviar notificações por e-mail"
+            },
+            "id": "notify",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Variable",
+              "en": "Variable",
+              "pr": "Variável"
+            },
+            "title": {
+              "es": "Resultado:",
+              "en": "Result:",
+              "pr": "Resultado:"
+            },
+            "help": {
+              "es": "Nombre de variable sin {}",
+              "en": "Variable name without {}",
+              "pr": "Nome da variável sem {}"
+            },
+            "remove_vars": true,
+            "id": "result",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": "session",
+            "title": {
+              "en": "Session",
+              "es": "Session",
+              "pr": "Session"
+            },
+            "help": {
+              "es": "Identificador de sesión (Opcional)",
+              "en": "Session ID (Optional)",
+              "pr": "ID da sessão (Opcional)"
+            },
+            "id": "session",
+            "css": "col-md-6"
+          }
+        ]
+      },
+      "video_youtube": "aMV6cXPMMSo",
+      "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tms9LVFEUx7/3zeRMZT9sEsunb0xyE7kIIldJtWpTRJTUNmnRok0gPjcxFDgj2V8QEkSLXIiIDG0K+0HQDwgiy6g0fToDof2CMpvGd+LpTJk2z7nvzWDvvTu7Yc45l+/nnh/3XobB4x/mcf0QAEQGeJyAKAGPJ4BogqIERAl4nIAoATsJUBUd3870VUE7MfL3TSE1MrzEXAdmJrv2v80/zt+WljKgqmN8j0TSI6uLWvGj2VnMjI7kdNV1qeFDV+Nj3tj8AIiY0pHUeReya78cACP+5JV93Hq4HcLRxC5ieGpXEK9/PgCgUx1vOXADqI4lGxnoLq8Au/b5AJB0qn/ftX+QZy0BgIeWYSsyQJSA6AHLNkE/WHjGj2ne8jKzryy7GdpceuuVmY1vlV4fP9q98k3wh89X+r5ly7dCAjjUf2gzpX2TZjGJWH38aK8AwAO+KGNQZIBZCRAxMEY8u2TYOrsE5u8PxkVld0a4zog1jbVV9iwGoUQTrWA4D9AZTa26lv3d0QCUWPIzQBsAGDtvNMfSjLDDmir3Z0WGY4mHBDQY34nh1HirfNXxAGpjwxvSCL4GMK2p8jZDkNw+EfJJbApASlPlACIkKcHkVwCrs4JdAyBXrSuxhHGlZpoqzzVipSMZB1GDIZwR+twJIEL+HXgpfQ1u7ARwFsA7TZVrF0KqiiYPSoxuuhKAEkt8AbA+K1gv0ddMnKv+7iUAQwDKAFTMiWbo1lrlE54B8FvofNP7CUDSaiv9aGKz2d9cWQI1kXfBUdSkEWHpBSOvl4AjEknbRtu2jroWQDg6cYAYuw3Cfa1NbpwTGiG/Ekz+8EwGKLHEx0ztGwchY96vm28BuDGmyic90QOUaKIPDIf/HIWhjrXJlxafE1zZA3gvPv+yd/RdQAAoAAGRAf/Nk1i7theEe2abermuM3y8/EFBH0WvzwRD8U8h00fRnyW0s+dY/wuehON+EqtoHtipS+y52SKDx1RsChT0TRT6NMPUxUDuZQlX5YdPTvGIz4xiPpf/EoBF8e4AYEO88wHYFO9sAAUQbwlAefPAdkjszYo2wQKJtwTAcCo/fcf0Xb+oU6CA4i0DCDXf2yNJes4/SRUNwIWApVFnlq3c54CFwYxykIAlf5MbamrB2pIU33xdzpoYBQ484zrkLBfScgbkE9gpNrYywCkii1YCAoALCIgScMEm2pIgMsAWPhc4iwxwwSbakiAywBY+Fzj/AqQf/F9/ldmbAAAAAElFTkSuQmCC",
+      "module": "DeleteEvent",
+      "module_name": "GoogleCalendar",
+      "visible": true,
+      "options": false,
+      "father": "module",
+      "group": "scripts",
+      "linux": true,
+      "windows": true,
+      "mac": true,
+      "docker": true
+    }
+  ]
+}
