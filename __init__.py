@@ -310,8 +310,9 @@ if module == "UpdateAtendeesEvent":
     emails_ = []
     for email in emails:
         emails_.append({'email': email.strip(), 'responseStatus': 'needsAction'})
-    for email in response['attendees']:
-        emails_.append(email)
+    if 'attendees' in response:
+        for email in response['attendees']:
+            emails_.append(email)
     
     body_ = response
     body_["attendees"] = emails_    
