@@ -189,12 +189,18 @@ if module == "GetEvent":
         raise e
    
 if module == "CreateEvent":
-    body_ = GetParams('body')
     calendarId = GetParams('calendarId')
     notify = GetParams("notify")
-    
-    if body_:
-        body_ = eval(body_)
+    summary = GetParams("summary")
+    location = GetParams("location")
+    description = GetParams("description")
+    start_dateTime = GetParams("start_dateTime")
+    start_timeZone = GetParams("start_timeZone")
+    end_dateTime = GetParams("end_dateTime")
+    end_timeZone = GetParams("end_timeZone")
+    recurrence = GetParams("recurrence")
+    attendees = GetParams("attendees")
+    reminders = GetParams("reminders")
     
     if notify:
         notify = eval(notify)
@@ -204,6 +210,32 @@ if module == "CreateEvent":
         notify = "none"
     
     result = GetParams('result')
+    body_ = {}
+    if summary:
+        body_['summary'] = summary
+    if location:
+        body_['location'] = location
+    if description:
+        body_['description'] = description
+    if start_dateTime and start_timeZone:
+        body_['start'] = {
+            'dateTime': start_dateTime,
+            'timeZone': start_timeZone,
+        }
+    if end_dateTime and end_timeZone:
+        body_['end'] = {
+            'dateTime': end_dateTime,
+            'timeZone': end_timeZone,
+        }
+    if recurrence:
+        body_['recurrence'] = recurrence
+    if attendees:
+        body_['attendees'] = [{'email': email} for email in attendees]
+    if reminders:
+        body_['reminders'] = {
+            'useDefault': False,
+            'overrides': reminders
+        }
 
     service = discovery.build('calendar', 'v3', credentials=mod_gcal_session[session])
 

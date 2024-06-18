@@ -443,6 +443,171 @@
             "css": "col-md-6"
           },
           {
+            "type": "input",
+            "placeholder": {
+              "es": "Nuevo Evento",
+              "en": "New Event",
+              "pr": "Novo Evento"
+            },
+            "title": {
+              "es": "Titulo: ",
+              "en": "Title: ",
+              "pr": "Título: "
+            },
+            "id": "summary",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "800 Howard St., San Francisco, CA 94103",
+              "en": "800 Howard St., San Francisco, CA 94103",
+              "pr": "800 Howard St., San Francisco, CA 94103"
+            },
+            "title": {
+              "es": "Ubicación: ",
+              "en": "Location: ",
+              "pr": "Localização: "
+            },
+            "id": "location",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "Evento para...",
+              "en": "Event for...",
+              "pr": "Evento para..."
+            },
+            "title": {
+              "es": "Descipción: ",
+              "en": "Description: ",
+              "pr": "Descrição: "
+            },
+            "id": "description",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "2015-05-28T09:00:00",
+              "en": "2015-05-28T09:00:00",
+              "pr": "2015-05-28T09:00:00"
+            },
+            "title": {
+              "es": "Fecha de Inicio: ",
+              "en": "Start Date: ",
+              "pr": "Data de Início: "
+            },
+            "id": "start_dateTime",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "America/Los_Angeles",
+              "en": "America/Los_Angeles",
+              "pr": "America/Los_Angeles"
+            },
+            "title": {
+              "es": "Zona Horaria de Inicio: ",
+              "en": "Start Timezone: ",
+              "pr": "Zona Horária de Início: "
+            },
+            "id": "start_timeZone",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "2015-05-28T12:00:00",
+              "en": "2015-05-28T12:00:00",
+              "pr": "2015-05-28T12:00:00"
+            },
+            "title": {
+              "es": "Fecha de Fin: ",
+              "en": "End Date: ",
+              "pr": "Data de Fim: "
+            },
+            "id": "end_dateTime",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "America/Los_Angeles",
+              "en": "America/Los_Angeles",
+              "pr": "America/Los_Angeles"
+            },
+            "title": {
+              "es": "Zona horaria de fin: ",
+              "en": "End Timezone: ",
+              "pr": "Zona Horária de Fim: "
+            },
+            "id": "end_timeZone",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "['RRULE:FREQ=DAILY;COUNT=2']",
+              "en": "['RRULE:FREQ=DAILY;COUNT=2']",
+              "pr": "['RRULE:FREQ=DAILY;COUNT=2']"
+            },
+            "title": {
+              "es": "Frecuencia: ",
+              "en": "Recurrence: ",
+              "pr": "Frequência: "
+            },
+            "description": {
+              "es": "Para armar la regla de frecuencia visite la documentación: https://developers.google.com/calendar/api/v3/reference/events/insert",
+              "en": "For building the recurrence rule visit the documentation: https://developers.google.com/calendar/api/v3/reference/events/insert",
+              "pr": "Para armar a regra de frequência visite a documentação: https://developers.google.com/calendar/api/v3/reference/events/insert"
+            },
+            "id": "recurrence",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "[{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}]",
+              "en": "[{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}]",
+              "pr": "[{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}]"
+            },
+            "description": {
+              "es": "Para más de un invitado armar una lista de diccionarios, para solo un invitado armar un diccionario.",
+              "en": "For more than one attendee build a list of dictionaries, for only one attendee build a dictionary.",
+              "pr": "Para mais de um convidado armar uma lista de dicionários, para apenas um convidado armar um dicionário."
+            },
+            "title": {
+              "es": "Invitados: ",
+              "en": "Attendees: ",
+              "pr": "Convidados: "
+            },
+            "id": "attendees",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "[{'method': 'email', 'minutes': 1440}, {'method': 'popup', 'minutes': 10}]",
+              "en": "[{'method': 'email', 'minutes': 1440}, {'method': 'popup', 'minutes': 10}]",
+              "pr": "[{'method': 'email', 'minutes': 1440}, {'method': 'popup', 'minutes': 10}]"
+            },
+            "description": {
+              "es": "Para más de un recordatorio armar una lista de diccionarios, para solo uno armar un diccionario.",
+              "en": "For more than one reminder build a list of dictionaries, for only one build a dictionary.",
+              "pr": "Para mais de um lembramento armar uma lista de dicionários, para apenas um armar um dicionário."
+            },
+            "title": {
+              "es": "Recordatorios: ",
+              "en": "Reminders: ",
+              "pr": "Lembramentos: "
+            },
+            "id": "reminders",
+            "css": "col-md-6"
+          },
+          {
             "type": "checkbox",
             "placeholder": {
               "es": "-",
