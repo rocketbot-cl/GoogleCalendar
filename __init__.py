@@ -230,7 +230,12 @@ if module == "CreateEvent":
     if recurrence:
         body_['recurrence'] = recurrence
     if attendees:
-        body_['attendees'] = [{'email': email} for email in attendees]
+        if isinstance(attendees, str):
+            if attendees.startswith("[") and attendees.endswith("]"):
+                attendees = eval(attendees)
+            else:
+                attendees = attendees.split(",")
+        body_['attendees'] = [{'email': email.strip()} for email in attendees]
     if reminders:
         body_['reminders'] = {
             'useDefault': False,

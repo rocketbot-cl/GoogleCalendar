@@ -412,22 +412,6 @@
         "css": "modal-xl",
         "inputs": [
           {
-            "type": "textarea",
-            "placeholder": "{'summary': 'Google I/O 2015', 'location': '800 Howard St., San Francisco, CA 94103', 'description': 'A chance to hear more about Google's developer products.', 'start': {'dateTime': '2015-05-28T09:00:00-07:00', 'timeZone': 'America/Los_Angeles'}, 'end': {'dateTime': '2015-05-28T17:00:00-07:00', 'timeZone': 'America/Los_Angeles'}, 'recurrence': ['RRULE:FREQ=DAILY;COUNT=2'], 'attendees': [{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}], 'reminders': {'useDefault': False, 'overrides': [{'method': 'email', 'minutes': 1440}, {'method': 'popup', 'minutes': 10}]}}}",
-            "title": {
-              "es": "Datos de Evento",
-              "en": "Event Data",
-              "pr": "Dados do Evento"
-            },
-            "help": {
-              "es": "Docs: https://developers.google.com/calendar/api/v3/reference/events/insert",
-              "en": "Docs: https://developers.google.com/calendar/api/v3/reference/events/insert",
-              "pr": "Docs: https://developers.google.com/calendar/api/v3/reference/events/insert"
-            },
-            "id": "body",
-            "css": "col-md-12"
-          },
-          {
             "type": "input",
             "placeholder": {
               "es": "Calendar ID",
@@ -539,8 +523,13 @@
               "en": "America/Los_Angeles",
               "pr": "America/Los_Angeles"
             },
+            "help": {
+              "es": "Puede consultar las zonas horarias aquí: https://github.com/sanohin/google-timezones-json/blob/master/timezones.jsonZona",
+              "en": "You can consult the timezones here: https://github.com/sanohin/google-timezones-json/blob/master/timezones.jsonZona",
+              "pr": "Pode consultar as zonas horárias aqui: https://github.com/sanohin/google-timezones-json/blob/master/timezones.jsonZona"
+            },
             "title": {
-              "es": "Zona Horaria de Fin: ",
+              "es": "Horaria de Fin: ",
               "en": "End Timezone: ",
               "pr": "Zona Horária de Fim: "
             },
@@ -559,6 +548,11 @@
               "en": "Recurrence: ",
               "pr": "Frequência: "
             },
+            "help": {
+              "es": "Opcional",
+              "en": "Optional",
+              "pr": "Opcional"
+            },
             "description": {
               "es": "Para armar la regla de frecuencia visite la documentación: https://developers.google.com/calendar/api/v3/reference/events/insert",
               "en": "For building the recurrence rule visit the documentation: https://developers.google.com/calendar/api/v3/reference/events/insert",
@@ -570,14 +564,19 @@
           {
             "type": "input",
             "placeholder": {
-              "es": "[{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}]",
-              "en": "[{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}]",
-              "pr": "[{'email': 'lpage@example.com'}, {'email': 'sbrin@example.com'}]"
+              "es": "['lpage@example.com', 'sbrin@example.com']",
+              "en": "['lpage@example.com', 'sbrin@example.com']",
+              "pr": "['lpage@example.com', 'sbrin@example.com']"
             },
             "description": {
-              "es": "Para más de un invitado armar una lista de diccionarios, para solo un invitado armar un diccionario.",
-              "en": "For more than one attendee build a list of dictionaries, for only one attendee build a dictionary.",
-              "pr": "Para mais de um convidado armar uma lista de dicionários, para apenas um convidado armar um dicionário."
+              "es": "Para más de un invitado armar una lista",
+              "en": "For more than one attendee build a list",
+              "pr": "Para mais de um convidado armar uma lista"
+            },
+            "help": {
+              "es": "Opcional",
+              "en": "Optional",
+              "pr": "Opcional"
             },
             "title": {
               "es": "Invitados: ",
@@ -598,6 +597,11 @@
               "es": "Para más de un recordatorio armar una lista de diccionarios, para solo uno armar un diccionario.",
               "en": "For more than one reminder build a list of dictionaries, for only one build a dictionary.",
               "pr": "Para mais de um lembramento armar uma lista de dicionários, para apenas um armar um dicionário."
+            },
+            "help": {
+              "es": "Opcional",
+              "en": "Optional",
+              "pr": "Opcional"
             },
             "title": {
               "es": "Recordatorios: ",
