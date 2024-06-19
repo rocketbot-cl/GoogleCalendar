@@ -489,14 +489,19 @@
           {
             "type": "input",
             "placeholder": {
-              "es": "America/Los_Angeles",
+              "es": "America/Argentina/Buenos_Aires",
               "en": "America/Los_Angeles",
-              "pr": "America/Los_Angeles"
+              "pr": "America/Bahia"
             },
             "title": {
               "es": "Zona Horaria de Inicio: ",
               "en": "Start Timezone: ",
               "pr": "Zona Horária de Início: "
+            },
+            "help": {
+              "es": "Puede consultar las zonas horarias aquí: https://www.php.net/manual/es/timezones.php",
+              "en": "You can consult the timezones here: https://www.php.net/manual/es/timezones.php",
+              "pr": "Pode consultar as zonas horárias aqui: https://www.php.net/manual/es/timezones.php"
             },
             "id": "start_timeZone",
             "css": "col-md-6"
@@ -519,14 +524,14 @@
           {
             "type": "input",
             "placeholder": {
-              "es": "America/Los_Angeles",
+              "es": "America/Argentina/Buenos_Aires",
               "en": "America/Los_Angeles",
-              "pr": "America/Los_Angeles"
+              "pr": "America/Bahia"
             },
             "help": {
-              "es": "Puede consultar las zonas horarias aquí: https://github.com/sanohin/google-timezones-json/blob/master/timezones.jsonZona",
-              "en": "You can consult the timezones here: https://github.com/sanohin/google-timezones-json/blob/master/timezones.jsonZona",
-              "pr": "Pode consultar as zonas horárias aqui: https://github.com/sanohin/google-timezones-json/blob/master/timezones.jsonZona"
+              "es": "Puede consultar las zonas horarias aquí: https://www.php.net/manual/es/timezones.php",
+              "en": "You can consult the timezones here: https://www.php.net/manual/es/timezones.php",
+              "pr": "Pode consultar as zonas horárias aqui: https://www.php.net/manual/es/timezones.php"
             },
             "title": {
               "es": "Horaria de Fin: ",
