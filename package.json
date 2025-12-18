@@ -1,13 +1,13 @@
 {
   "author": "Danilo Toro, Nicolas Liendro, Juan Siro",
-  "description": "Module to use Google Calendar",
+  "description": "Module to use Google Calendar. You can get, modify, create or delete events and more from any calendar you have in your Google Calendar account",
   "description_lang":{
     "en": "You can get, modify, create or delete events and more from any calendar you have in your Google Calendar account",
     "es": "Puedes obtener, modificar, crear o borrar eventos y más de cualquier calendario que tengas en tu cuenta de Google Calendar",
     "pr": "Pode obter, modificar, criar ou eliminar eventos e mais de qualquer calendário que tenhas na sua conta do Google Calendar"
   },
   "disclaimer": "THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
-  "version": "1.0.3",
+  "version": "1.0.1",
   "license": "MIT",
   "homepage": "http://rocketbot.com",
   "linux": true,
@@ -231,7 +231,67 @@
               "pr": "ID do calendário"
             },
             "id": "calendarId",
-            "css": "col-md-12"
+            "css": "col-md-6"
+          },
+          {
+            "type": "checkbox",
+            "placeholder": {
+              "es": "-",
+              "en": "-",
+              "pr": "-"
+            },
+            "title": {
+              "es": "Buscar por fecha",
+              "en": "Search by date",
+              "pr": "Buscar por data"
+            },
+            "description": {
+              "es": "Marcar para filtrar por fecha",
+              "en": "Check to filter by date",
+              "pr": "Marcar para filtrar por data"
+            },
+            "id": "by_date",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "2025-04-01",
+              "en": "2025-04-01",
+              "pr": "2025-04-01"
+            },
+            "title": {
+              "es": "Fecha Inicio:",
+              "en": "Start Date:",
+              "pr": "Data de início:"
+            },
+            "help": {
+              "es": "Sólo cuando 'Search por fecha' está marcado",
+              "en": "Only when 'Search by date' is checked",
+              "pr": "Somente quando 'Buscar por data' estiver selecionado"
+            },
+            "id": "start_date",
+            "css": "col-md-6"
+          },
+          {
+            "type": "input",
+            "placeholder": {
+              "es": "2025-04-01",
+              "en": "2025-04-01",
+              "pr": "2025-04-01"
+            },
+            "title": {
+              "es": "Fecha Fin:",
+              "en": "End Date:",
+              "pr": "Data Fim:"
+            },
+            "help": {
+              "es": "Sólo cuando 'Search por fecha' está marcado",
+              "en": "Only when 'Search by date' is checked",
+              "pr": "Somente quando 'Buscar por data' estiver selecionado"
+            },
+            "id": "end_date",
+            "css": "col-md-6"
           },
           {
             "type": "input",
