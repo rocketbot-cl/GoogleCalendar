@@ -149,9 +149,13 @@ if module == "ListEvents":
 
     service = discovery.build('calendar', 'v3', credentials=mod_gcal_session[session])
     
+    single_events = True # Por defecto, se listan eventos individuales (no series)
+
+
     list_args = {
         "calendarId": calendarId,
         "pageToken": None,
+        "singleEvents": single_events,    # evita expansión de ocurrencias por defecto
     }
 
     # Validar si se quiere filtrar por fecha
