@@ -73,7 +73,7 @@ if module == "GoogleSuite":
     credential_path = GetParams("credentials_path")
     port = 8080 if not GetParams("port") else GetParams("port")
     port = int(port)
-    print('PORT',type(port))
+    #print('PORT',type(port))
 
     if session == '':
         filename = "token_calendar.pickle"
