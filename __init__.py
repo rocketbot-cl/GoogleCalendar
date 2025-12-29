@@ -48,7 +48,7 @@ from openpyxl.utils.cell import column_index_from_string, get_column_letter
 
 import traceback
 import pickle
-import re
+from datetime import datetime
 
 """
     Obtengo el modulo que fueron invocados
@@ -72,6 +72,8 @@ if module == "GoogleSuite":
     cred = None
     credential_path = GetParams("credentials_path")
     port = 8080 if not GetParams("port") else GetParams("port")
+    port = int(port)
+    #print('PORT',type(port))
 
     if session == '':
         filename = "token_calendar.pickle"
@@ -140,14 +142,39 @@ if module == "ListCalendars":
 
 if module == "ListEvents":
     calendarId = GetParams('calendarId')
+    by_date = GetParams('by_date')
+    start_date = GetParams('start_date')
+    end_date = GetParams('end_date')
     result = GetParams('result')
 
     service = discovery.build('calendar', 'v3', credentials=mod_gcal_session[session])
+    
+    single_events = True # Por defecto, se listan eventos individuales (no series)
 
-    page_token = None
+
+    list_args = {
+        "calendarId": calendarId,
+        "pageToken": None,
+        "singleEvents": single_events,    # evita expansión de ocurrencias por defecto
+    }
+
+    # Validar si se quiere filtrar por fecha
+    if by_date:
+        if not start_date or not end_date:
+            raise Exception("You must enter a start date and an end date")
+        try:
+            # Convertir "YYYY-MM-DD" a "YYYY-MM-DDT00:00:00Z"
+            start_date_iso = datetime.strptime(start_date, "%Y-%m-%d").strftime("%Y-%m-%dT00:00:00Z")
+            end_date_iso = datetime.strptime(end_date, "%Y-%m-%d").strftime("%Y-%m-%dT23:59:59Z")  # para incluir todo el día
+        except ValueError:
+            raise Exception("Incorrect date format. Use YYYY-MM-DD.")
+        
+        list_args["timeMin"] = start_date_iso
+        list_args["timeMax"] = end_date_iso
+    
     events = []
     while True:
-        response = service.events().list(calendarId=calendarId, pageToken=page_token).execute()
+        response = service.events().list(**list_args).execute()
         for event in response['items']:
             event_ = {
                 "id": event["id"],
@@ -161,8 +188,8 @@ if module == "ListEvents":
                 "hangoutLink": event.get("hangoutLink",""),
             }
             events.append(event_)
-        page_token = response.get('nextPageToken')
-        if not page_token:
+        list_args["pageToken"] = response.get('nextPageToken')
+        if not list_args["pageToken"]:
             break
 
     if result:
